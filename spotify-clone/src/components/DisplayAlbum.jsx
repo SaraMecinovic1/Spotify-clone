@@ -1,11 +1,14 @@
 import NavBar from "./NavBar";
 import { useParams } from "react-router-dom";
 import { albumsData, assets, songsData } from "../assets/assets";
+import React, { useContext } from "react";
+import { PlayerContext } from "../context/playerContext";
 
 const DisplayAlbum = () => {
   const { id } = useParams();
   const albumData = albumsData[id];
   console.log(albumData);
+  const { playWithId } = useContext(PlayerContext);
 
   return (
     <>
@@ -42,6 +45,7 @@ const DisplayAlbum = () => {
       {songsData.map((item, index) => (
         // eslint-disable-next-line react/jsx-key
         <div
+          onClick={() => playWithId(item.id)}
           key={index}
           className="grid grid-cols- sm:grid-cols-4 gap-2 p-2 items-center text-[#a7a7a7] cursor-pointer hover:bg-[#ffffff2b] "
         >

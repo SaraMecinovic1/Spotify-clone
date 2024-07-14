@@ -35,6 +35,38 @@ const PlayerContextProvider = (props) => {
     setPlayStatus(false);
   };
 
+  // Funkcija za pustanje drugih pesama
+  const playWithId = async (id) => {
+    await setTrack(songsData[id]);
+    await audioRef.current.play();
+    setPlayStatus(true);
+  };
+
+  // Funkcija za pustanje prethodne pesme
+  const previous = async () => {
+    if (track.id > 0) {
+      await setTrack(songsData[track.id - 1]);
+      await audioRef.current.play();
+      setPlayStatus(true);
+    }
+  };
+
+  // Funkcija za pustanje sledece pesme
+  const next = async () => {
+    if (track.id < songsData.length - 1) {
+      await setTrack(songsData[track.id + 1]);
+      await audioRef.current.play();
+      setPlayStatus(true);
+    }
+  };
+
+  const seekSong = (e) => {
+    audioRef.current.currentTime =
+      (e.nativeEvent.offsetX / seekBg.current.offsetWidth) *
+      audioRef.current.duration;
+    console.log(e, "seek song");
+  };
+  
   // Efekat koji se pokreće kada se promeni audioRef
   useEffect(() => {
     setTimeout(() => {
@@ -71,6 +103,10 @@ const PlayerContextProvider = (props) => {
     setTime,
     play,
     pause,
+    playWithId,
+    previous,
+    next,
+    seekSong,
   };
 
   return (
