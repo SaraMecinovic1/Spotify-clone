@@ -1,4 +1,3 @@
-import React from "react";
 import NavBar from "./NavBar";
 import { useParams } from "react-router-dom";
 import { albumsData, assets, songsData } from "../assets/assets";
